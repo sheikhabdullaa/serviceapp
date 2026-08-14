@@ -1,18 +1,12 @@
-import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:service_hub/new/appuser.dart';
 import 'package:service_hub/new/firestore_service.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/profile_preview.dart';
-
-import '../../model/model.dart';
-import '../../services/fire_Store_services.dart';
 import '../../theme/app_theme.dart';
-import '../../widgets/common_widgets.dart' hide PrimaryButton;
 
 class UploadIdCardScreen extends StatefulWidget {
   final ProviderProfile providerProfile;
@@ -30,6 +24,8 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
   final ImagePicker _imagePicker = ImagePicker();
 
   XFile? _selectedImage;
+  Uint8List? _selectedImageBytes;
+
   bool _uploading = false;
   String? _error;
 
@@ -79,8 +75,11 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
                   onTap: () {
                     Navigator.of(sheetContext).pop();
 
+                    // Chrome/Web par gallery/file
+                    // picker open hoga. Android par
+                    // mobile camera open hoga.
                     _pickImage(
-                      ImageSource.camera,
+                      kIsWeb ? ImageSource.gallery : ImageSource.camera,
                     );
                   },
                 ),
@@ -126,10 +125,22 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
         preferredCameraDevice: CameraDevice.rear,
       );
 
-      if (image == null || !mounted) return;
+      if (image == null) return;
+
+      final Uint8List imageBytes = await image.readAsBytes();
+
+      if (!mounted) return;
+
+      if (imageBytes.isEmpty) {
+        setState(() {
+          _error = 'Selected image could not be loaded.';
+        });
+        return;
+      }
 
       setState(() {
         _selectedImage = image;
+        _selectedImageBytes = imageBytes;
         _error = null;
       });
     } catch (error) {
@@ -141,14 +152,15 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
     }
   }
 
-  String _fileExtension(String path) {
-    final cleanPath = path.toLowerCase().split('?').first;
+  String _fileExtension(XFile image) {
+    final String fileName =
+        '${image.name} ${image.path}'.toLowerCase().split('?').first;
 
-    if (cleanPath.endsWith('.png')) {
+    if (fileName.contains('.png')) {
       return 'png';
     }
 
-    if (cleanPath.endsWith('.webp')) {
+    if (fileName.contains('.webp')) {
       return 'webp';
     }
 
@@ -170,17 +182,28 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
 
   Future<String> _uploadImage(
     XFile image,
+    Uint8List imageBytes,
   ) async {
-    final extension = _fileExtension(image.path);
+    if (imageBytes.isEmpty) {
+      throw Exception(
+        'Selected image data is empty.',
+      );
+    }
 
-    final storageReference = FirebaseStorage.instance.ref().child(
+    final String extension = _fileExtension(image);
+
+    final Reference storageReference = FirebaseStorage.instance.ref().child(
           'provider_id_cards/'
           '${widget.providerProfile.uid}/'
           'id_card.$extension',
         );
 
-    final uploadTask = await storageReference.putFile(
-      File(image.path),
+    /*
+     * putData Android aur Flutter Web
+     * dono platforms par kaam karta hai.
+     */
+    final UploadTask uploadTask = storageReference.putData(
+      imageBytes,
       SettableMetadata(
         contentType: _contentType(extension),
         customMetadata: {
@@ -190,7 +213,9 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
       ),
     );
 
-    return uploadTask.ref.getDownloadURL();
+    final TaskSnapshot snapshot = await uploadTask;
+
+    return snapshot.ref.getDownloadURL();
   }
 
   Future<void> _continueToPreview() async {
@@ -203,6 +228,13 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
       return;
     }
 
+    if (_selectedImage != null && _selectedImageBytes == null) {
+      setState(() {
+        _error = 'Selected image could not be loaded. Please select it again.';
+      });
+      return;
+    }
+
     setState(() {
       _uploading = true;
       _error = null;
@@ -211,18 +243,20 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
     try {
       String imageUrl = widget.providerProfile.idCardImageUrl;
 
-      if (_selectedImage != null) {
+      if (_selectedImage != null && _selectedImageBytes != null) {
         imageUrl = await _uploadImage(
           _selectedImage!,
+          _selectedImageBytes!,
         );
       }
 
-      final updatedProfile = widget.providerProfile.copyWith(
+      final ProviderProfile updatedProfile = widget.providerProfile.copyWith(
         idCardImageUrl: imageUrl,
       );
 
       /*
-       * Uploaded URL provider draft میں save کریں۔
+       * Uploaded image URL provider document
+       * mein save hoga.
        */
       await FirestoreService.instance.createOrUpdateProvider(
         updatedProfile,
@@ -243,6 +277,7 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
       setState(() {
         switch (error.code) {
           case 'unauthorized':
+          case 'permission-denied':
             _error = 'Firebase Storage permission denied. Check Storage rules.';
             break;
 
@@ -252,6 +287,15 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
 
           case 'retry-limit-exceeded':
             _error = 'Upload timed out. Check your internet and try again.';
+            break;
+
+          case 'object-not-found':
+            _error = 'Firebase Storage file could not be created.';
+            break;
+
+          case 'unknown':
+            _error =
+                'Upload failed. Check your internet connection and Firebase Storage setup.';
             break;
 
           default:
@@ -280,7 +324,9 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
-          title: const Text('Upload ID Card'),
+          title: const Text(
+            'Upload ID Card',
+          ),
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -372,13 +418,24 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
   }
 
   Widget _buildImagePreview() {
-    if (_selectedImage != null) {
+    /*
+     * Image.memory Android aur Web dono par
+     * selected image preview show karega.
+     */
+    if (_selectedImageBytes != null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(15),
-        child: Image.file(
-          File(_selectedImage!.path),
+        child: Image.memory(
+          _selectedImageBytes!,
+          width: double.infinity,
+          height: double.infinity,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
+          gaplessPlayback: true,
+          errorBuilder: (
+            context,
+            error,
+            stackTrace,
+          ) {
             return const _UploadPlaceholder();
           },
         ),
@@ -390,6 +447,8 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
         borderRadius: BorderRadius.circular(15),
         child: Image.network(
           widget.providerProfile.idCardImageUrl,
+          width: double.infinity,
+          height: double.infinity,
           fit: BoxFit.cover,
           loadingBuilder: (
             context,
@@ -404,7 +463,11 @@ class _UploadIdCardScreenState extends State<UploadIdCardScreen> {
               child: CircularProgressIndicator(),
             );
           },
-          errorBuilder: (context, error, stackTrace) {
+          errorBuilder: (
+            context,
+            error,
+            stackTrace,
+          ) {
             return const _UploadPlaceholder();
           },
         ),
@@ -469,8 +532,8 @@ class _ProfileStepIndicator extends StatelessWidget {
       children: List.generate(
         labels.length,
         (index) {
-          final step = index + 1;
-          final active = step <= currentStep;
+          final int step = index + 1;
+          final bool active = step <= currentStep;
 
           return Expanded(
             child: Row(
