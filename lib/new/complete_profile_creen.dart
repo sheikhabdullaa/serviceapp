@@ -278,9 +278,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 18),
-                    const _ProfileStepIndicator(
-                      currentStep: 1,
-                    ),
+                    // const _ProfileStepIndicator(
+                    //   currentStep: 1,
+                    // ),
                     const SizedBox(height: 26),
                     TextFormField(
                       controller: _nameController,
@@ -495,80 +495,80 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   }
 }
 
-class _ProfileStepIndicator extends StatelessWidget {
-  final int currentStep;
+// class _ProfileStepIndicator extends StatelessWidget {
+//   final int currentStep;
 
-  const _ProfileStepIndicator({
-    required this.currentStep,
-  });
+//   const _ProfileStepIndicator({
+//     required this.currentStep,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    const labels = [
-      'Details',
-      'ID Card',
-      'Preview',
-    ];
+//   @override
+//   Widget build(BuildContext context) {
+//     const labels = [
+//       'Details',
+//       'ID Card',
+//       'Preview',
+//     ];
 
-    return Row(
-      children: List.generate(
-        labels.length,
-        (index) {
-          final step = index + 1;
-          final active = step <= currentStep;
+//     return Row(
+//       children: List.generate(
+//         labels.length,
+//         (index) {
+//           final step = index + 1;
+//           final active = step <= currentStep;
 
-          return Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: active
-                              ? AppColors.primaryYellow
-                              : AppColors.darkBg,
-                          shape: BoxShape.circle,
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '$step',
-                          style: TextStyle(
-                            color:
-                                active ? AppColors.darkBg : AppColors.textGrey,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        labels[index],
-                        style: TextStyle(
-                          color: active ? AppColors.darkBg : AppColors.textGrey,
-                          fontSize: 11,
-                          fontWeight:
-                              active ? FontWeight.w600 : FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (index < labels.length - 1)
-                  Expanded(
-                    child: Container(
-                      height: 2,
-                      color: step < currentStep
-                          ? AppColors.primaryYellow
-                          : AppColors.darkBg,
-                    ),
-                  ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+//           return Expanded(
+//             child: Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     children: [
+//                       Container(
+//                         width: 32,
+//                         height: 32,
+//                         decoration: BoxDecoration(
+//                           color: active
+//                               ? AppColors.primaryYellow
+//                               : AppColors.darkBg,
+//                           shape: BoxShape.circle,
+//                         ),
+//                         alignment: Alignment.center,
+//                         child: Text(
+//                           '$step',
+//                           style: TextStyle(
+//                             color:
+//                                 active ? AppColors.darkBg : AppColors.textGrey,
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                         ),
+//                       ),
+//                       const SizedBox(height: 6),
+//                       Text(
+//                         labels[index],
+//                         style: TextStyle(
+//                           color: active ? AppColors.darkBg : AppColors.textGrey,
+//                           fontSize: 11,
+//                           fontWeight:
+//                               active ? FontWeight.w600 : FontWeight.normal,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 if (index < labels.length - 1)
+//                   Expanded(
+//                     child: Container(
+//                       height: 2,
+//                       color: step < currentStep
+//                           ? AppColors.primaryYellow
+//                           : AppColors.darkBg,
+//                     ),
+//                   ),
+//               ],
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
