@@ -20,7 +20,7 @@ dependencies:
   shared_preferences: ^2.3.2
 
   # Open WhatsApp / phone dialer / mailto etc.
-  url_launcher: ^6.3.0
+  url_launcher: ^6.3.2
 
   # Catches the incoming email sign-in link (Android App Links / iOS
   # Universal Links) when the user taps it in Gmail. Maintained successor
