@@ -14,9 +14,7 @@ import 'package:service_hub/theme/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const KaamSetuApp());
 }
@@ -46,9 +44,7 @@ class _AuthGateState extends State<AuthGate> {
   int _refreshKey = 0;
 
   /// Firestore سے current user کی routing information load کرتا ہے۔
-  Future<UserRouteData?> _loadUserRouteData(
-    String uid,
-  ) async {
+  Future<UserRouteData?> _loadUserRouteData(String uid) async {
     final document =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
@@ -63,15 +59,10 @@ class _AuthGateState extends State<AuthGate> {
     final profileCompleted = data['profileCompleted'] as bool? ?? false;
 
     if (role != 'user' && role != 'provider') {
-      throw Exception(
-        'Invalid role "$role" found in Firestore.',
-      );
+      throw Exception('Invalid role "$role" found in Firestore.');
     }
 
-    return UserRouteData(
-      role: role,
-      profileCompleted: profileCompleted,
-    );
+    return UserRouteData(role: role, profileCompleted: profileCompleted);
   }
 
   void _retry() {
@@ -110,9 +101,7 @@ class _AuthGateState extends State<AuthGate> {
         }
 
         return FutureBuilder<UserRouteData?>(
-          key: ValueKey(
-            '${firebaseUser.uid}-$_refreshKey',
-          ),
+          key: ValueKey('${firebaseUser.uid}-$_refreshKey'),
           future: _loadUserRouteData(firebaseUser.uid),
           builder: (context, profileSnapshot) {
             if (profileSnapshot.connectionState == ConnectionState.waiting) {
@@ -134,9 +123,7 @@ class _AuthGateState extends State<AuthGate> {
              * لیکن users/{uid} Firestore document نہیں ہے۔
              */
             if (routeData == null) {
-              return MissingUserDocumentScreen(
-                firebaseUser: firebaseUser,
-              );
+              return MissingUserDocumentScreen(firebaseUser: firebaseUser);
             }
 
             /*
@@ -164,9 +151,7 @@ class _AuthGateState extends State<AuthGate> {
                 );
               }
 
-              return const ProviderDashboardScreen(
-                providerId: '',
-              );
+              return const ProviderDashboardScreen(providerId: '');
             }
 
             /*
@@ -188,10 +173,7 @@ class UserRouteData {
   final String role;
   final bool profileCompleted;
 
-  const UserRouteData({
-    required this.role,
-    required this.profileCompleted,
-  });
+  const UserRouteData({required this.role, required this.profileCompleted});
 }
 
 /// Loading screen
@@ -204,9 +186,7 @@ class AppLoadingScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: SafeArea(
         child: Center(
-          child: CircularProgressIndicator(
-            color: AppColors.primaryYellow,
-          ),
+          child: CircularProgressIndicator(color: AppColors.primaryYellow),
         ),
       ),
     );
@@ -273,10 +253,7 @@ class AuthErrorScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                TextButton(
-                  onPressed: _signOut,
-                  child: const Text('Logout'),
-                ),
+                TextButton(onPressed: _signOut, child: const Text('Logout')),
               ],
             ),
           ),
@@ -290,10 +267,7 @@ class AuthErrorScreen extends StatelessWidget {
 class MissingUserDocumentScreen extends StatefulWidget {
   final User firebaseUser;
 
-  const MissingUserDocumentScreen({
-    super.key,
-    required this.firebaseUser,
-  });
+  const MissingUserDocumentScreen({super.key, required this.firebaseUser});
 
   @override
   State<MissingUserDocumentScreen> createState() =>
@@ -366,9 +340,7 @@ class _MissingUserDocumentScreenState extends State<MissingUserDocumentScreen> {
                   Text(
                     _error!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: AppColors.danger,
-                    ),
+                    style: const TextStyle(color: AppColors.danger),
                   ),
                 ],
                 const SizedBox(height: 24),
@@ -380,13 +352,9 @@ class _MissingUserDocumentScreenState extends State<MissingUserDocumentScreen> {
                         ? const SizedBox(
                             width: 22,
                             height: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
+                            child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Text(
-                            'Logout and Register Again',
-                          ),
+                        : const Text('Logout and Register Again'),
                   ),
                 ),
               ],
