@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "932125841285",
+    "project_id": "servicehub-ca359",
+    "storage_bucket": "servicehub-ca359.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932125841285:android:9960e4cce4716eb51416ec",
+        "android_client_info": {
+          "package_name": "com.example.service_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRWy6Gr9lLgZoSrYfSSzXveLab7NtYsfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932125841285:android:b9a6a228eb18c76d1416ec",
+        "android_client_info": {
+          "package_name": "com.example.serviceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRWy6Gr9lLgZoSrYfSSzXveLab7NtYsfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,38 @@
+name: service_hub
+description: "KaamSetu - Har Kaam, Aasan. Connect users with trusted local service providers."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # Firebase
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.3
+
+  # Passwordless email link + local persistence of the "pending email"
+  shared_preferences: ^2.3.2
+
+  # Open WhatsApp / phone dialer / mailto etc.
+  url_launcher: ^6.3.0
+
+  # Catches the incoming email sign-in link (Android App Links / iOS
+  # Universal Links) when the user taps it in Gmail. Maintained successor
+  # to uni_links; does NOT depend on the now-shut-down Firebase Dynamic Links.
+  app_links: ^6.3.2
+  image_picker: ^1.2.3
+  firebase_storage: ^12.4.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
