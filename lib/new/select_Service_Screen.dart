@@ -1,10 +1,10 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:service_hub/new/auth_Service.dart';
 import 'package:service_hub/new/new_role_Selection.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/provider_list_screen.dart';
 import 'package:service_hub/new/user_booking.dart';
-import 'package:service_hub/services/old_auth.dart';
 import '../theme/app_theme.dart';
 
 class SelectServiceScreen extends StatefulWidget {
@@ -19,7 +19,6 @@ class SelectServiceScreen extends StatefulWidget {
 class _SelectServiceScreenState extends State<SelectServiceScreen> {
   final TextEditingController _searchController = TextEditingController();
 
-  String _searchQuery = '';
   bool _loggingOut = false;
 
   // List<ServiceCategory> get _filteredCategories {
@@ -37,6 +36,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
   //   ).toList();
   // }
 
+  // ignore: unused_element
   void _openProviderList(
     ServiceCategory category,
   ) {
@@ -121,15 +121,16 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
     }
   }
 
+  // ignore: unused_element
   void _showMoreServices() {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: AppColors.white,
       showDragHandle: true,
       builder: (sheetContext) {
-        return SafeArea(
+        return const SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(
+            padding: EdgeInsets.fromLTRB(
               18,
               4,
               18,
@@ -138,7 +139,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'All Services',
                   style: TextStyle(
@@ -272,7 +273,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
           ),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Text('Select Service Screen'),
         // child: RefreshIndicator(
         //   onRefresh: () async {
@@ -400,6 +401,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
   }
 }
 
+// ignore: unused_element
 class _WelcomeBanner extends StatelessWidget {
   final VoidCallback onBookings;
 

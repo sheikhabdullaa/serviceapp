@@ -300,6 +300,7 @@ class _LinkSentScreenState extends State<LinkSentScreen>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
+                      // ignore: deprecated_member_use
                       color: AppColors.success.withOpacity(0.20),
                       blurRadius: 24,
                       spreadRadius: 2,

@@ -7,11 +7,7 @@ import 'package:service_hub/new/link_sent_screen.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/provider_dashbord.dart';
 import 'package:service_hub/new/select_Service_Screen.dart';
-
-import '../services/old_auth.dart' hide AuthService;
 import '../../theme/app_theme.dart';
-import '../../user/select_service.dart';
-import '../../widgets/common_widgets.dart' hide PrimaryButton;
 
 class EmailLoginScreen extends StatefulWidget {
   final String role;

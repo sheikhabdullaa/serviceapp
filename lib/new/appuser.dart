@@ -326,6 +326,7 @@ class ProviderProfile {
     );
   }
 
+  // ignore: body_might_complete_normally_nullable
   static ProviderProfile? fromMap(Map<String, dynamic> map, String id) {}
 }
 

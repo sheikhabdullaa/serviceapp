@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:service_hub/new/new_role_Selection.dart';
 import 'package:service_hub/new/primary_buton.dart';
-import 'package:service_hub/sacreens/role_selection.dart';
-
 import '../theme/app_theme.dart';
-import '../widgets/common_widgets.dart' hide PrimaryButton;
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -14,8 +11,7 @@ class SplashScreen extends StatelessWidget {
   ) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) =>
-            const RoleSelectScreen(),
+        builder: (_) => const RoleSelectScreen(),
       ),
     );
   }
@@ -30,52 +26,41 @@ class SplashScreen extends StatelessWidget {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight:
-                      constraints.maxHeight,
+                  minHeight: constraints.maxHeight,
                 ),
                 child: IntrinsicHeight(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 28,
                       vertical: 24,
                     ),
                     child: Column(
                       children: [
                         const Spacer(flex: 2),
-
                         const KaamSetuLogo(
                           size: 105,
                           darkBackground: true,
                         ),
-
                         const SizedBox(height: 28),
-
                         const Text(
                           'Fast. Simple. Reliable.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: AppColors
-                                .primaryYellow,
+                            color: AppColors.primaryYellow,
                             fontSize: 18,
-                            fontWeight:
-                                FontWeight.w700,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-
                         const SizedBox(height: 14),
-
                         const Padding(
-                          padding:
-                              EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 8,
                           ),
                           child: Text(
                             'Connect with trusted local service '
                             'providers or offer your skills and '
                             'grow your work.',
-                            textAlign:
-                                TextAlign.center,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.white,
                               fontSize: 15,
@@ -83,22 +68,17 @@ class SplashScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         const Spacer(flex: 3),
-
                         PrimaryButton(
                           label: 'Get Started',
-                          icon:
-                              Icons.arrow_forward,
+                          icon: Icons.arrow_forward,
                           onPressed: () {
                             _openRoleSelection(
                               context,
                             );
                           },
                         ),
-
                         const SizedBox(height: 14),
-
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -108,52 +88,40 @@ class SplashScreen extends StatelessWidget {
                                 context,
                               );
                             },
-                            style:
-                                OutlinedButton.styleFrom(
-                              foregroundColor:
-                                  AppColors.white,
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.white,
                               side: const BorderSide(
-                                color:
-                                    AppColors.white,
+                                color: AppColors.white,
                               ),
                             ),
                             child: const Text(
                               'Login',
                               style: TextStyle(
-                                fontWeight:
-                                    FontWeight.w600,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 24),
-
                         const Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons
-                                  .verified_user_outlined,
-                              color:
-                                  AppColors.success,
+                              Icons.verified_user_outlined,
+                              color: AppColors.success,
                               size: 18,
                             ),
                             SizedBox(width: 7),
                             Text(
                               'Trusted. Simple. Connected.',
                               style: TextStyle(
-                                color:
-                                    AppColors.textGrey,
+                                color: AppColors.textGrey,
                                 fontSize: 12,
-                                fontWeight:
-                                    FontWeight.w500,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 8),
                       ],
                     ),

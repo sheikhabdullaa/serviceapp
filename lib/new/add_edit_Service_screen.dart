@@ -4,6 +4,7 @@ import 'package:service_hub/new/firestore_service.dart';
 import 'package:service_hub/new/primary_buton.dart';
 
 import '../../theme/app_theme.dart';
+
 class AddEditServiceScreen extends StatefulWidget {
   final String providerId;
   final ProviderService? service;
@@ -218,6 +219,7 @@ class _AddEditServiceScreenState extends State<AddEditServiceScreen> {
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
+                    // ignore: deprecated_member_use
                     value: _selectedCategory,
                     isExpanded: true,
                     decoration: const InputDecoration(

@@ -4,11 +4,7 @@ import 'package:service_hub/new/firestore_service.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/user_model.dart' hide BookingRequest;
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../model/model.dart';
-import '../../services/fire_Store_services.dart';
 import '../../theme/app_theme.dart';
-import '../../widgets/common_widgets.dart' hide PrimaryButton;
 
 class ProviderBookingsScreen extends StatelessWidget {
   final String providerId;
@@ -363,6 +359,7 @@ class BookingRequestCard extends StatelessWidget {
                   vertical: 5,
                 ),
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: _statusColor.withOpacity(
                     0.11,
                   ),

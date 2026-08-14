@@ -8,13 +8,13 @@ import 'package:service_hub/new/new_role_Selection.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/provider_booking_screen.dart';
 import 'package:service_hub/new/provider_profile_screen.dart';
-import 'package:service_hub/services/old_auth.dart';
 
 import '../../theme/app_theme.dart';
 
 class ProviderDashboardScreen extends StatefulWidget {
   const ProviderDashboardScreen({
-    super.key, required String providerId,
+    super.key,
+    required String providerId,
   });
 
   @override
@@ -485,6 +485,7 @@ class _ProviderStatusCard extends StatelessWidget {
               vertical: 7,
             ),
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: AppColors.white.withOpacity(0.08),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -524,6 +525,7 @@ class _ProviderStatusCard extends StatelessWidget {
                 else
                   Switch(
                     value: provider.isLive,
+                    // ignore: deprecated_member_use
                     activeColor: AppColors.success,
                     onChanged: onLiveStatusChanged,
                   ),
@@ -615,6 +617,7 @@ class _DashboardMenuItem extends StatelessWidget {
         width: 42,
         height: 42,
         decoration: BoxDecoration(
+          // ignore: deprecated_member_use
           color: textColor.withOpacity(0.08),
           borderRadius: BorderRadius.circular(11),
         ),

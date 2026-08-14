@@ -4,31 +4,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:service_hub/new/appuser.dart';
 
-import '../model/model.dart';
-
 class FirestoreService {
   FirestoreService._();
 
-  static final FirestoreService instance =
-      FirestoreService._();
+  static final FirestoreService instance = FirestoreService._();
 
-  final FirebaseFirestore _db =
-      FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  final FirebaseAuth _auth =
-      FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  CollectionReference<Map<String, dynamic>>
-      get _users =>
-          _db.collection('users');
+  CollectionReference<Map<String, dynamic>> get _users =>
+      _db.collection('users');
 
-  CollectionReference<Map<String, dynamic>>
-      get _providers =>
-          _db.collection('providers');
+  CollectionReference<Map<String, dynamic>> get _providers =>
+      _db.collection('providers');
 
-  CollectionReference<Map<String, dynamic>>
-      get _bookings =>
-          _db.collection('bookings');
+  CollectionReference<Map<String, dynamic>> get _bookings =>
+      _db.collection('bookings');
 
   User get _requiredFirebaseUser {
     final user = _auth.currentUser;
@@ -36,8 +28,7 @@ class FirestoreService {
     if (user == null) {
       throw FirebaseAuthException(
         code: 'no-current-user',
-        message:
-            'Your session has expired. Please login again.',
+        message: 'Your session has expired. Please login again.',
       );
     }
 
@@ -52,11 +43,9 @@ class FirestoreService {
   Future<AppUser?> getUser(String uid) async {
     if (uid.trim().isEmpty) return null;
 
-    final document =
-        await _users.doc(uid.trim()).get();
+    final document = await _users.doc(uid.trim()).get();
 
-    if (!document.exists ||
-        document.data() == null) {
+    if (!document.exists || document.data() == null) {
       return null;
     }
 
@@ -76,12 +65,8 @@ class FirestoreService {
       return Stream<AppUser?>.value(null);
     }
 
-    return _users
-        .doc(uid.trim())
-        .snapshots()
-        .map((document) {
-      if (!document.exists ||
-          document.data() == null) {
+    return _users.doc(uid.trim()).snapshots().map((document) {
+      if (!document.exists || document.data() == null) {
         return null;
       }
 
@@ -93,9 +78,9 @@ class FirestoreService {
     AppUser user,
   ) async {
     await _users.doc(user.uid).set(
-      user.toMap(),
-      SetOptions(merge: true),
-    );
+          user.toMap(),
+          SetOptions(merge: true),
+        );
   }
 
   Future<void> updateUserFields({
@@ -108,8 +93,7 @@ class FirestoreService {
 
     await _users.doc(uid.trim()).set({
       ...data,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 
@@ -157,20 +141,16 @@ class FirestoreService {
       return null;
     }
 
-    final document = await _providers
-        .doc(providerId.trim())
-        .get();
+    final document = await _providers.doc(providerId.trim()).get();
 
-    if (!document.exists ||
-        document.data() == null) {
+    if (!document.exists || document.data() == null) {
       return null;
     }
 
     return ProviderProfile.fromDoc(document);
   }
 
-  Future<ProviderProfile?>
-      getCurrentProvider() async {
+  Future<ProviderProfile?> getCurrentProvider() async {
     final user = _auth.currentUser;
 
     if (user == null) return null;
@@ -187,12 +167,8 @@ class FirestoreService {
       );
     }
 
-    return _providers
-        .doc(providerId.trim())
-        .snapshots()
-        .map((document) {
-      if (!document.exists ||
-          document.data() == null) {
+    return _providers.doc(providerId.trim()).snapshots().map((document) {
+      if (!document.exists || document.data() == null) {
         return null;
       }
 
@@ -209,12 +185,10 @@ class FirestoreService {
       );
     }
 
-    await _providers
-        .doc(provider.uid)
-        .set(
-      provider.toMap(),
-      SetOptions(merge: true),
-    );
+    await _providers.doc(provider.uid).set(
+          provider.toMap(),
+          SetOptions(merge: true),
+        );
   }
 
   /// Provider profile save کرکے users document میں
@@ -222,22 +196,18 @@ class FirestoreService {
   Future<void> saveCompletedProviderProfile(
     ProviderProfile provider,
   ) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
     if (firebaseUser.uid != provider.uid) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot update another provider profile.',
+        message: 'You cannot update another provider profile.',
       );
     }
 
-    final providerReference =
-        _providers.doc(provider.uid);
+    final providerReference = _providers.doc(provider.uid);
 
-    final userReference =
-        _users.doc(provider.uid);
+    final userReference = _users.doc(provider.uid);
 
     final batch = _db.batch();
 
@@ -246,8 +216,7 @@ class FirestoreService {
       {
         ...provider.toMap(),
         if (provider.createdAt == null)
-          'createdAt':
-              FieldValue.serverTimestamp(),
+          'createdAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );
@@ -256,17 +225,13 @@ class FirestoreService {
       userReference,
       {
         'uid': provider.uid,
-        'email':
-            provider.email.trim().toLowerCase(),
+        'email': provider.email.trim().toLowerCase(),
         'name': provider.name.trim(),
-        'whatsapp':
-            provider.whatsapp.trim(),
+        'whatsapp': provider.whatsapp.trim(),
         'role': 'provider',
-        'emailVerified':
-            firebaseUser.emailVerified,
+        'emailVerified': firebaseUser.emailVerified,
         'profileCompleted': true,
-        'updatedAt':
-            FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );
@@ -276,7 +241,8 @@ class FirestoreService {
 
   Future<void> updateProviderFields({
     required String providerId,
-    required Map<String, dynamic> data, required String uid,
+    required Map<String, dynamic> data,
+    required String uid,
   }) async {
     if (providerId.trim().isEmpty) {
       throw ArgumentError(
@@ -284,12 +250,9 @@ class FirestoreService {
       );
     }
 
-    await _providers
-        .doc(providerId.trim())
-        .set({
+    await _providers.doc(providerId.trim()).set({
       ...data,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 
@@ -298,58 +261,44 @@ class FirestoreService {
   // providers/{providerId}/services/{serviceId}
   // ========================================================
 
-  CollectionReference<Map<String, dynamic>>
-      _servicesReference(
+  CollectionReference<Map<String, dynamic>> _servicesReference(
     String providerId,
   ) {
-    return _providers
-        .doc(providerId)
-        .collection('services');
+    return _providers.doc(providerId).collection('services');
   }
 
   /// نئی provider service add کریں۔
   Future<String> addProviderService(
     ProviderService service,
   ) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
-    if (firebaseUser.uid !=
-        service.providerId) {
+    if (firebaseUser.uid != service.providerId) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot add a service for another provider.',
+        message: 'You cannot add a service for another provider.',
       );
     }
 
-    final serviceReference =
-        _servicesReference(service.providerId)
-            .doc();
+    final serviceReference = _servicesReference(service.providerId).doc();
 
     await serviceReference.set({
       ...service.toMap(),
       'serviceId': serviceReference.id,
       'providerId': service.providerId,
-      'createdAt':
-          FieldValue.serverTimestamp(),
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     });
 
     /*
      * Provider document میں categories بھی رکھیں،
      * تاکہ user-side searching آسان ہو۔
      */
-    await _providers
-        .doc(service.providerId)
-        .set({
-      'serviceCategories':
-          FieldValue.arrayUnion([
+    await _providers.doc(service.providerId).set({
+      'serviceCategories': FieldValue.arrayUnion([
         service.category.trim(),
       ]),
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
 
     return serviceReference.id;
@@ -359,15 +308,12 @@ class FirestoreService {
   Future<void> updateProviderService(
     ProviderService service,
   ) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
-    if (firebaseUser.uid !=
-        service.providerId) {
+    if (firebaseUser.uid != service.providerId) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot update another provider service.',
+        message: 'You cannot update another provider service.',
       );
     }
 
@@ -382,24 +328,18 @@ class FirestoreService {
     ).doc(service.id).set({
       ...service.toMap(),
       'serviceId': service.id,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
 
-    await _providers
-        .doc(service.providerId)
-        .set({
-      'serviceCategories':
-          FieldValue.arrayUnion([
+    await _providers.doc(service.providerId).set({
+      'serviceCategories': FieldValue.arrayUnion([
         service.category.trim(),
       ]),
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 
-  Future<ProviderService?>
-      getProviderService({
+  Future<ProviderService?> getProviderService({
     required String providerId,
     required String serviceId,
   }) async {
@@ -407,16 +347,14 @@ class FirestoreService {
       providerId,
     ).doc(serviceId).get();
 
-    if (!document.exists ||
-        document.data() == null) {
+    if (!document.exists || document.data() == null) {
       return null;
     }
 
     return ProviderService.fromDoc(document);
   }
 
-  Stream<List<ProviderService>>
-      watchProviderServices(
+  Stream<List<ProviderService>> watchProviderServices(
     String providerId,
   ) {
     if (providerId.trim().isEmpty) {
@@ -432,14 +370,11 @@ class FirestoreService {
         )
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs
-              .map(ProviderService.fromDoc)
-              .toList(),
+          (snapshot) => snapshot.docs.map(ProviderService.fromDoc).toList(),
         );
   }
 
-  Stream<List<ProviderService>>
-      watchActiveProviderServices(
+  Stream<List<ProviderService>> watchActiveProviderServices(
     String providerId,
   ) {
     if (providerId.trim().isEmpty) {
@@ -455,20 +390,16 @@ class FirestoreService {
         )
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs
-              .map(ProviderService.fromDoc)
-              .toList(),
+          (snapshot) => snapshot.docs.map(ProviderService.fromDoc).toList(),
         );
   }
 
   /// User app کے لیے category کی تمام active
   /// services حاصل کریں۔
-  Stream<List<ProviderService>>
-      watchActiveServicesByCategory(
+  Stream<List<ProviderService>> watchActiveServicesByCategory(
     String category,
   ) {
-    final normalizedCategory =
-        category.trim();
+    final normalizedCategory = category.trim();
 
     if (normalizedCategory.isEmpty) {
       return Stream<List<ProviderService>>.value(
@@ -488,9 +419,7 @@ class FirestoreService {
         )
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs
-              .map(ProviderService.fromDoc)
-              .toList(),
+          (snapshot) => snapshot.docs.map(ProviderService.fromDoc).toList(),
         );
   }
 
@@ -499,23 +428,18 @@ class FirestoreService {
     required String serviceId,
     required bool isActive,
   }) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
     if (firebaseUser.uid != providerId) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot update another provider service.',
+        message: 'You cannot update another provider service.',
       );
     }
 
-    await _servicesReference(providerId)
-        .doc(serviceId)
-        .update({
+    await _servicesReference(providerId).doc(serviceId).update({
       'isActive': isActive,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     });
   }
 
@@ -523,20 +447,16 @@ class FirestoreService {
     required String providerId,
     required String serviceId,
   }) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
     if (firebaseUser.uid != providerId) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot delete another provider service.',
+        message: 'You cannot delete another provider service.',
       );
     }
 
-    await _servicesReference(providerId)
-        .doc(serviceId)
-        .delete();
+    await _servicesReference(providerId).doc(serviceId).delete();
 
     await _rebuildServiceCategories(
       providerId,
@@ -548,17 +468,11 @@ class FirestoreService {
   Future<void> _rebuildServiceCategories(
     String providerId,
   ) async {
-    final snapshot =
-        await _servicesReference(providerId)
-            .get();
+    final snapshot = await _servicesReference(providerId).get();
 
     final categories = snapshot.docs
         .map(
-          (document) =>
-              (document.data()['category'] ??
-                      '')
-                  .toString()
-                  .trim(),
+          (document) => (document.data()['category'] ?? '').toString().trim(),
         )
         .where(
           (category) => category.isNotEmpty,
@@ -568,8 +482,7 @@ class FirestoreService {
 
     await _providers.doc(providerId).set({
       'serviceCategories': categories,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 
@@ -581,14 +494,12 @@ class FirestoreService {
     required String providerId,
     required bool isLive,
   }) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
     if (firebaseUser.uid != providerId) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot change another provider status.',
+        message: 'You cannot change another provider status.',
       );
     }
 
@@ -597,14 +508,13 @@ class FirestoreService {
      * بغیر live نہیں ہوسکتا۔
      */
     if (isLive) {
-      final activeServices =
-          await _servicesReference(providerId)
-              .where(
-                'isActive',
-                isEqualTo: true,
-              )
-              .limit(1)
-              .get();
+      final activeServices = await _servicesReference(providerId)
+          .where(
+            'isActive',
+            isEqualTo: true,
+          )
+          .limit(1)
+          .get();
 
       if (activeServices.docs.isEmpty) {
         throw StateError(
@@ -615,8 +525,7 @@ class FirestoreService {
 
     await _providers.doc(providerId).set({
       'isLive': isLive,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 
@@ -624,8 +533,7 @@ class FirestoreService {
   ///
   /// چھوٹی MVP app کے لیے collectionGroup query کے
   /// بعد provider documents load کیے جاتے ہیں۔
-  Stream<List<ProviderProfile>>
-      watchLiveProvidersForCategory(
+  Stream<List<ProviderProfile>> watchLiveProvidersForCategory(
     String category,
   ) {
     return watchActiveServicesByCategory(
@@ -636,22 +544,18 @@ class FirestoreService {
           .where((id) => id.isNotEmpty)
           .toSet();
 
-      final providers =
-          <ProviderProfile>[];
+      final providers = <ProviderProfile>[];
 
       for (final providerId in providerIds) {
-        final provider =
-            await getProvider(providerId);
+        final provider = await getProvider(providerId);
 
-        if (provider != null &&
-            provider.isLive) {
+        if (provider != null && provider.isLive) {
           providers.add(provider);
         }
       }
 
       providers.sort(
-        (first, second) =>
-            second.rating.compareTo(
+        (first, second) => second.rating.compareTo(
           first.rating,
         ),
       );
@@ -682,8 +586,7 @@ class FirestoreService {
 
     await _providers.doc(providerId).set({
       field: FieldValue.increment(1),
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 
@@ -713,22 +616,18 @@ class FirestoreService {
   Future<String> createBooking(
     BookingRequest booking,
   ) async {
-    final firebaseUser =
-        _requiredFirebaseUser;
+    final firebaseUser = _requiredFirebaseUser;
 
     if (firebaseUser.uid != booking.userId) {
       throw FirebaseAuthException(
         code: 'permission-denied',
-        message:
-            'You cannot create a booking for another user.',
+        message: 'You cannot create a booking for another user.',
       );
     }
 
-    final bookingReference =
-        _bookings.doc();
+    final bookingReference = _bookings.doc();
 
-    final providerReference =
-        _providers.doc(booking.providerId);
+    final providerReference = _providers.doc(booking.providerId);
 
     final batch = _db.batch();
 
@@ -736,19 +635,15 @@ class FirestoreService {
       ...booking.toMap(),
       'bookingId': bookingReference.id,
       'status': 'requested',
-      'createdAt':
-          FieldValue.serverTimestamp(),
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     });
 
     batch.set(
       providerReference,
       {
-        'totalBookings':
-            FieldValue.increment(1),
-        'updatedAt':
-            FieldValue.serverTimestamp(),
+        'totalBookings': FieldValue.increment(1),
+        'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );
@@ -758,8 +653,7 @@ class FirestoreService {
     return bookingReference.id;
   }
 
-  Stream<List<BookingRequest>>
-      watchProviderBookings(
+  Stream<List<BookingRequest>> watchProviderBookings(
     String providerId,
   ) {
     if (providerId.trim().isEmpty) {
@@ -779,14 +673,11 @@ class FirestoreService {
         )
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs
-              .map(BookingRequest.fromDoc)
-              .toList(),
+          (snapshot) => snapshot.docs.map(BookingRequest.fromDoc).toList(),
         );
   }
 
-  Stream<List<BookingRequest>>
-      watchUserBookings(
+  Stream<List<BookingRequest>> watchUserBookings(
     String userId,
   ) {
     if (userId.trim().isEmpty) {
@@ -806,9 +697,7 @@ class FirestoreService {
         )
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs
-              .map(BookingRequest.fromDoc)
-              .toList(),
+          (snapshot) => snapshot.docs.map(BookingRequest.fromDoc).toList(),
         );
   }
 
@@ -816,8 +705,7 @@ class FirestoreService {
     required String bookingId,
     required String status,
   }) async {
-    final normalizedStatus =
-        status.trim().toLowerCase();
+    final normalizedStatus = status.trim().toLowerCase();
 
     const allowedStatuses = {
       'requested',
@@ -837,8 +725,7 @@ class FirestoreService {
 
     await _bookings.doc(bookingId).update({
       'status': normalizedStatus,
-      'updatedAt':
-          FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
     });
   }
 

@@ -427,6 +427,7 @@ class _AddEditServiceScreenState extends State<AddEditServiceScreen> {
                     child: SwitchListTile(
                       contentPadding: EdgeInsets.zero,
                       value: _isActive,
+                      // ignore: deprecated_member_use
                       activeColor: AppColors.success,
                       title: const Text(
                         'Active Service',

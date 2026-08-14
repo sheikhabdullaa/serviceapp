@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:service_hub/new/add_edit_service.dart';
 import 'package:service_hub/new/appuser.dart';
@@ -392,6 +391,7 @@ class _ServiceSummary extends StatelessWidget {
           Container(
             width: 1,
             height: 42,
+            // ignore: deprecated_member_use
             color: AppColors.white.withOpacity(0.18),
           ),
           Expanded(
@@ -470,6 +470,7 @@ class _ServiceCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
           color: service.isActive
+              // ignore: deprecated_member_use
               ? AppColors.success.withOpacity(0.25)
               : AppColors.cardDark,
         ),
@@ -630,6 +631,7 @@ class _ServiceCard extends StatelessWidget {
                   color: (service.isActive
                           ? AppColors.success
                           : AppColors.textGrey)
+                      // ignore: deprecated_member_use
                       .withOpacity(0.10),
                   borderRadius: BorderRadius.circular(20),
                 ),

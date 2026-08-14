@@ -4,12 +4,7 @@ import 'package:service_hub/new/firestore_service.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/provider_profile_screen.dart';
 import 'package:service_hub/new/user_model.dart' hide ProviderProfile;
-import 'package:service_hub/widgets/intial_avater.dart' hide InitialsAvatar;
-
-import '../model/model.dart';
-import '../services/fire_Store_services.dart';
 import '../theme/app_theme.dart' hide ServiceCategory;
-import '../widgets/common_widgets.dart';
 
 class ProviderListScreen extends StatefulWidget {
   final String category;

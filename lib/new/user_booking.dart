@@ -92,6 +92,7 @@ class UserBookingsScreen extends StatelessWidget {
     //   return;
     // }
 
+    // ignore: unused_local_variable
     final message = Uri.encodeComponent(
       'Assalam-o-Alaikum ${booking.providerName},\n\n'
       'I am contacting you regarding my KaamSetu booking for '
@@ -326,6 +327,7 @@ class UserBookingCard extends StatelessWidget {
                   vertical: 5,
                 ),
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: _statusColor.withOpacity(0.11),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -359,6 +361,7 @@ class UserBookingCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: _statusColor.withOpacity(0.07),
               borderRadius: BorderRadius.circular(11),
             ),

@@ -151,6 +151,7 @@ class KaamSetuLogo extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: AppColors.primaryYellow.withOpacity(0.22),
                 blurRadius: 24,
                 spreadRadius: 2,
@@ -224,9 +225,11 @@ class ErrorMessageBox extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: AppColors.danger.withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
+          // ignore: deprecated_member_use
           color: AppColors.danger.withOpacity(0.20),
         ),
       ),
@@ -288,9 +291,11 @@ class SuccessMessageBox extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: AppColors.success.withOpacity(0.09),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
+          // ignore: deprecated_member_use
           color: AppColors.success.withOpacity(0.20),
         ),
       ),
@@ -431,6 +436,7 @@ class EmptyStateWidget extends StatelessWidget {
               width: 82,
               height: 82,
               decoration: BoxDecoration(
+                // ignore: deprecated_member_use
                 color: AppColors.primaryYellow.withOpacity(0.13),
                 shape: BoxShape.circle,
               ),
@@ -530,6 +536,7 @@ class VerificationBadge extends StatelessWidget {
         vertical: 5,
       ),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: color.withOpacity(0.11),
         borderRadius: BorderRadius.circular(20),
       ),

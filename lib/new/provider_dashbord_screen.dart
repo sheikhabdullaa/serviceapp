@@ -6,12 +6,7 @@ import 'package:service_hub/new/new_role_Selection.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/provider_booking_screen.dart';
 import 'package:service_hub/new/provider_service_screen.dart';
-
-import '../../model/model.dart';
-import '../services/old_auth.dart';
-import '../../services/fire_Store_services.dart';
 import '../../theme/app_theme.dart';
-import '../../widgets/common_widgets.dart';
 import 'edit_provider_profile_screen.dart';
 import 'provider_profile_screen.dart';
 
@@ -491,6 +486,7 @@ class _ProviderWelcomeCard extends StatelessWidget {
               vertical: 8,
             ),
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: AppColors.white.withOpacity(0.10),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -521,6 +517,7 @@ class _ProviderWelcomeCard extends StatelessWidget {
                 Switch(
                   value: provider.isLive,
                   onChanged: updatingStatus ? null : onLiveChanged,
+                  // ignore: deprecated_member_use
                   activeColor: AppColors.success,
                 ),
               ],
@@ -565,6 +562,7 @@ class _DashboardStatCard extends StatelessWidget {
             width: 43,
             height: 43,
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: color.withOpacity(0.15),
               borderRadius: BorderRadius.circular(12),
             ),

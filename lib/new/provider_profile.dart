@@ -7,7 +7,6 @@ import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/provider_service_screen.dart';
 import 'package:service_hub/new/user_model.dart'
     hide ProviderService, ProviderProfile;
-import '../services/old_auth.dart';
 import '../../theme/app_theme.dart';
 import 'edit_provider_profile_screen.dart';
 
@@ -356,7 +355,9 @@ class _ProviderProfileHeader extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: provider.isLive
+                  // ignore: deprecated_member_use
                   ? AppColors.success.withOpacity(0.18)
+                  // ignore: deprecated_member_use
                   : AppColors.white.withOpacity(0.10),
               borderRadius: BorderRadius.circular(20),
             ),

@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:service_hub/new/email_login_screen.dart';
 
@@ -156,6 +157,7 @@ class RoleSelectionCard extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: AppColors.darkBg.withOpacity(0.05),
                 blurRadius: 18,
                 offset: const Offset(0, 7),

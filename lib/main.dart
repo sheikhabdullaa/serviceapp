@@ -10,7 +10,6 @@ import 'package:service_hub/new/link_sent_screen.dart';
 import 'package:service_hub/new/new_splash_screen.dart';
 import 'package:service_hub/new/provider_dashbord.dart';
 import 'package:service_hub/new/select_Service_Screen.dart';
-import 'package:service_hub/services/old_auth.dart';
 import 'package:service_hub/theme/app_theme.dart';
 
 Future<void> main() async {

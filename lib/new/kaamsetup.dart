@@ -228,6 +228,7 @@ class _AuthProblemScreenState extends State<AuthProblemScreen> {
                   width: 82,
                   height: 82,
                   decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
                     color: AppColors.danger.withOpacity(0.10),
                     shape: BoxShape.circle,
                   ),
@@ -340,6 +341,7 @@ class _MissingAccountProfileScreenState
                   width: 84,
                   height: 84,
                   decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
                     color: AppColors.danger.withOpacity(0.10),
                     shape: BoxShape.circle,
                   ),
@@ -378,7 +380,7 @@ class _MissingAccountProfileScreenState
                     message: _error!,
                   ),
                 ],
-                SizedBox(height: 26),
+                const SizedBox(height: 26),
                 PrimaryButton(
                   label: 'Logout and Register Again',
                   icon: Icons.logout,
