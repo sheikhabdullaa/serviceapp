@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'package:service_hub/firebase_options.dart';
 import 'package:service_hub/new/auth_Service.dart';
 import 'package:service_hub/new/complete_profile_creen.dart';
@@ -36,8 +35,6 @@ class KaamSetuApp extends StatelessWidget {
   }
 }
 
-/// App کے شروع ہونے پر authentication، verification، role
-/// اور provider profile completion check کرتا ہے۔
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
 
