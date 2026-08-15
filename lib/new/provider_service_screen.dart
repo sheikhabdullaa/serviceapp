@@ -606,14 +606,15 @@ class ProviderServicesScreen extends StatelessWidget {
       return;
     }
 
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => AddEditServiceScreen(
-          providerId: providerId,
-          providerProfile: providerProfile,
-        ),
-      ),
-    );
+    // await Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (_) => AddEditServiceScreen(
+    //       providerId: providerId,
+    //       providerProfile: providerProfile,
+    //       service: service,
+    //     ),
+    //   ),
+    // );
   }
 
   Future<void> _openEditService(
@@ -634,6 +635,7 @@ class ProviderServicesScreen extends StatelessWidget {
           providerId: providerId,
           providerProfile: providerProfile,
           existingService: service,
+          service: service,
         ),
       ),
     );
