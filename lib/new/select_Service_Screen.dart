@@ -227,13 +227,13 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
           'Select Service',
         ),
         actions: [
-          IconButton(
-            tooltip: 'My Bookings',
-            onPressed: _openBookings,
-            icon: const Icon(
-              Icons.calendar_month_outlined,
-            ),
-          ),
+          // IconButton(
+          //   tooltip: 'My Bookings',
+          //   onPressed: _openBookings,
+          //   icon: const Icon(
+          //     Icons.calendar_month_outlined,
+          //   ),
+          // ),
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'bookings') {
@@ -245,18 +245,18 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'bookings',
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_month_outlined,
-                    ),
-                    SizedBox(width: 10),
-                    Text('My Bookings'),
-                  ],
-                ),
-              ),
+              // const PopupMenuItem(
+              //   value: 'bookings',
+              //   child: Row(
+              //     children: [
+              //       Icon(
+              //         Icons.calendar_month_outlined,
+              //       ),
+              //       SizedBox(width: 10),
+              //       Text('My Bookings'),
+              //     ],
+              //   ),
+              // ),
               const PopupMenuItem(
                 value: 'logout',
                 child: Row(
@@ -449,19 +449,19 @@ class _WelcomeBanner extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                TextButton.icon(
-                  onPressed: onBookings,
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                  ),
-                  icon: const Icon(
-                    Icons.calendar_month_outlined,
-                    size: 18,
-                  ),
-                  label: const Text(
-                    'View My Bookings',
-                  ),
-                ),
+                // TextButton.icon(
+                //   onPressed: onBookings,
+                //   style: TextButton.styleFrom(
+                //     padding: EdgeInsets.zero,
+                //   ),
+                //   icon: const Icon(
+                //     Icons.calendar_month_outlined,
+                //     size: 18,
+                //   ),
+                //   label: const Text(
+                //     'View My Bookings',
+                //   ),
+                // ),
               ],
             ),
           ),
