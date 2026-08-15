@@ -446,6 +446,23 @@ class ProviderService {
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
+
+  static ProviderService empty() {
+    return ProviderService(
+      id: '',
+      providerId: '',
+      providerName: '',
+      category: '',
+      title: '',
+      description: '',
+      experienceYears: 0,
+      hourlyCharge: 0.0,
+      serviceArea: '',
+      isActive: false,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+  }
 }
 
 // =========================================================

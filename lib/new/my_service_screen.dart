@@ -4,7 +4,8 @@ import 'package:service_hub/new/appuser.dart';
 import 'package:service_hub/new/firestore_service.dart';
 import 'package:service_hub/new/primary_buton.dart';
 import 'package:service_hub/new/profile_live_screen.dart';
-import 'package:service_hub/new/user_model.dart' hide ProviderService, ProviderProfile;
+import 'package:service_hub/new/user_model.dart'
+    hide ProviderService, ProviderProfile;
 
 import '../../theme/app_theme.dart';
 
@@ -48,7 +49,9 @@ class _MyServicesScreenState extends State<MyServicesScreen> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => AddEditServiceScreen(
-          providerProfile: provider, providerId: '',
+          providerProfile: provider,
+          providerId: '',
+          existingService: ProviderService.empty(),
         ),
       ),
     );
@@ -66,7 +69,8 @@ class _MyServicesScreenState extends State<MyServicesScreen> {
       MaterialPageRoute(
         builder: (_) => AddEditServiceScreen(
           providerProfile: provider,
-          existingService: service, providerId: '',
+          existingService: service,
+          providerId: '',
         ),
       ),
     );
