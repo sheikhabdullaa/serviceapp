@@ -52,7 +52,7 @@ class _MyServicesScreenState extends State<MyServicesScreen> {
           providerProfile: provider,
           existingService: ProviderService.empty(),
           providerId: '',
-          // service: ProviderService.empty(),
+          service: ProviderService.empty(),
         ),
       ),
     );
@@ -71,7 +71,7 @@ class _MyServicesScreenState extends State<MyServicesScreen> {
         builder: (_) => AddEditServiceScreen(
           providerProfile: provider,
           existingService: service,
-          providerId: '',
+          providerId: '', service: service,
           // service: service,
         ),
       ),

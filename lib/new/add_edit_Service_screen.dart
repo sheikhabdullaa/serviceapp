@@ -533,7 +533,7 @@ class AddEditServiceScreen extends StatefulWidget {
     super.key,
     required this.providerId,
     required this.providerProfile,
-    this.existingService,
+    this.existingService, required ProviderService service,
   });
 
   @override
