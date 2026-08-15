@@ -15,7 +15,6 @@
 //     super.key,
 //     required this.providerProfile,
 //     this.existingService,
-//     required String providerId,
 //   });
 
 //   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:service_hub/new/add_edit_Service_screen.dart';
-import 'package:service_hub/new/add_edit_service.dart';
 import 'package:service_hub/new/appuser.dart';
 import 'package:service_hub/new/firestore_service.dart';
 import 'package:service_hub/new/primary_buton.dart';
@@ -51,9 +50,9 @@ class _MyServicesScreenState extends State<MyServicesScreen> {
       MaterialPageRoute(
         builder: (_) => AddEditServiceScreen(
           providerProfile: provider,
-          providerId: '',
           existingService: ProviderService.empty(),
-          service: ProviderService.empty(),
+          providerId: '',
+          // service: ProviderService.empty(),
         ),
       ),
     );
@@ -73,7 +72,7 @@ class _MyServicesScreenState extends State<MyServicesScreen> {
           providerProfile: provider,
           existingService: service,
           providerId: '',
-          service: service,
+          // service: service,
         ),
       ),
     );
