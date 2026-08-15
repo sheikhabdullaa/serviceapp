@@ -2683,22 +2683,17 @@ class FirestoreService {
     return serviceReference.id;
   }
 
-  /// موجودہ service update کریں۔
   Future<String> _resolveProviderServiceDocumentId(
     ProviderService service,
   ) async {
     final services = _servicesReference(service.providerId);
     final incomingId = service.id.trim();
-
-    // Naye/correct data mein model ID hi Firestore document ID hoti hai.
     if (incomingId.isNotEmpty) {
       final directDocument = await services.doc(incomingId).get();
 
       if (directDocument.exists) {
         return directDocument.id;
       }
-
-      // Purane data mein serviceId field aur document ID different ho sakte hain.
       final storedIdResult = await services
           .where('serviceId', isEqualTo: incomingId)
           .limit(1)
