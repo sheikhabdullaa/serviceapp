@@ -598,8 +598,6 @@
 //     );
 //   }
 // }
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 DateTime? dateTimeFromFirestore(dynamic value) {
@@ -1023,14 +1021,10 @@ class ProviderService {
   ) {
     final data = doc.data() ?? {};
 
-    // Purane documents mein serviceId field missing ya empty ho sakti hai.
-    // Aisi surat mein Firestore document ki asli ID use hogi.
-    final storedServiceId = (data['serviceId'] ?? '').toString().trim();
-    final resolvedServiceId =
-        storedServiceId.isNotEmpty ? storedServiceId : doc.id.trim();
-
     return ProviderService(
-      id: resolvedServiceId,
+      // Firestore document ID hi hamesha update/delete ke liye use hogi.
+      // Document ke andar purani ya mismatched serviceId ignore ki jati hai.
+      id: doc.id.trim(),
       providerId: (data['providerId'] as String? ?? '').trim(),
       providerName: (data['providerName'] as String? ?? '').trim(),
       category: (data['category'] as String? ?? '').trim(),
