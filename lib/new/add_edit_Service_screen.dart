@@ -1013,9 +1013,6 @@
 //   }
 // }
 
-
-
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:service_hub/new/appuser.dart';
@@ -1034,7 +1031,7 @@ class AddEditServiceScreen extends StatefulWidget {
     super.key,
     required this.providerProfile,
     this.existingService,
-    required String providerId,
+    required String providerId, required ProviderService service,
   });
 
   @override
@@ -1062,9 +1059,6 @@ class _AddEditServiceScreenState extends State<AddEditServiceScreen> {
   String? _error;
 
   bool get isEditing => widget.existingService != null;
-
-  // Duplicate categories, khas taur par duplicate "More",
-  // ko dropdown list se remove karta hai.
   List<ServiceCategory> get _uniqueServiceCategories {
     final Map<String, ServiceCategory> uniqueCategories = {};
 

@@ -62,6 +62,7 @@ class ProviderServicesScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) => AddEditServiceScreen(
           providerId: providerId,
+          providerProfile: null,
         ),
       ),
     );
