@@ -13,7 +13,7 @@
 //   final ProviderProfile provider;
 //   const ProfileLiveScreen({super.key, required this.provider});
 
-//   String get _link => 'https://kaamsetu.app/p/${provider.uid}';
+//   String get _link => 'https://Service Hub.app/p/${provider.uid}';
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@
 //               label: 'Share on WhatsApp',
 //               onPressed: () => WhatsAppService.openChat(
 //                 provider.whatsapp,
-//                 message: 'Check out my KaamSetu profile: $_link',
+//                 message: 'Check out my Service Hub profile: $_link',
 //               ),
 //             ),
 //           ],

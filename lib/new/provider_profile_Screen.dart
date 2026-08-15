@@ -59,7 +59,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
 
     final message = Uri.encodeComponent(
       'Assalam-o-Alaikum ${provider.name}, '
-      'I found your ${provider.mainService} profile on KaamSetu.',
+      'I found your ${provider.mainService} profile on Service Hub.',
     );
 
     final uri = Uri.parse(

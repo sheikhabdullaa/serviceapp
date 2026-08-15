@@ -121,14 +121,14 @@ class SecondaryButton extends StatelessWidget {
   }
 }
 
-/// KaamSetu logo widget۔
-class KaamSetuLogo extends StatelessWidget {
+/// servicehub logo widget۔
+class servicehublogo extends StatelessWidget {
   final double size;
   final bool showName;
   final bool showTagline;
   final bool darkBackground;
 
-  const KaamSetuLogo({
+  const servicehublogo({
     super.key,
     this.size = 92,
     this.showName = true,
@@ -175,13 +175,13 @@ class KaamSetuLogo extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: 'Kaam',
+                  text: 'Service',
                   style: TextStyle(
                     color: titleColor,
                   ),
                 ),
                 const TextSpan(
-                  text: 'Setu',
+                  text: 'Hub',
                   style: TextStyle(
                     color: AppColors.primaryYellow,
                   ),

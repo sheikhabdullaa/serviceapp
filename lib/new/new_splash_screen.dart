@@ -37,7 +37,7 @@ class SplashScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         const Spacer(flex: 2),
-                        const KaamSetuLogo(
+                        const servicehublogo(
                           size: 105,
                           darkBackground: true,
                         ),

@@ -40,7 +40,7 @@
 //                         const Spacer(flex: 2),
 
 //                         /*
-//                          * KaamSetu logo
+//                          * Service Hub logo
 //                          */
 //                         Container(
 //                           width: 104,

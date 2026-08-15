@@ -90,7 +90,7 @@ class ProviderBookingsScreen extends StatelessWidget {
 
     final message = Uri.encodeComponent(
       'Assalam-o-Alaikum ${booking.userName},\n\n'
-      'I am contacting you regarding your KaamSetu request for '
+      'I am contacting you regarding your Service Hub request for '
       '${booking.serviceTitle} on ${_formatDate(booking.date)} '
       'at ${booking.time}.',
     );
@@ -381,7 +381,7 @@ class BookingRequestCard extends StatelessWidget {
             icon: Icons.person_outline,
             label: 'Customer',
             value:
-                booking.userName.isEmpty ? 'KaamSetu User' : booking.userName,
+                booking.userName.isEmpty ? 'Service Hub User' : booking.userName,
           ),
           const SizedBox(height: 10),
           _BookingInfoRow(

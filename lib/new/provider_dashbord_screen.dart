@@ -82,7 +82,7 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
     final confirmed = await showConfirmationDialog(
       context: context,
       title: 'Logout?',
-      message: 'Are you sure you want to logout from KaamSetu?',
+      message: 'Are you sure you want to logout from Service Hub?',
       confirmLabel: 'Logout',
       destructive: true,
     );

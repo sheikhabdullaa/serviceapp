@@ -95,7 +95,7 @@ class UserBookingsScreen extends StatelessWidget {
     // ignore: unused_local_variable
     final message = Uri.encodeComponent(
       'Assalam-o-Alaikum ${booking.providerName},\n\n'
-      'I am contacting you regarding my KaamSetu booking for '
+      'I am contacting you regarding my Service Hub booking for '
       '${booking.serviceTitle} on ${_formatDate(booking.date)} '
       'at ${booking.time}.',
     );

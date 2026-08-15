@@ -1,5 +1,5 @@
 name: service_hub
-description: "KaamSetu - Har Kaam, Aasan. Connect users with trusted local service providers."
+description: "Service Hub - Har Kaam, Aasan. Connect users with trusted local service providers."
 publish_to: 'none'
 version: 1.0.0+1
 

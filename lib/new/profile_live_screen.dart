@@ -94,7 +94,7 @@ class _ProfileLiveScreenState extends State<ProfileLiveScreen> {
 
     final message = Uri.encodeComponent(
       'Hi! I am ${widget.providerProfile.name}, '
-      'a ${widget.providerProfile.mainService} service provider on KaamSetu.\n\n'
+      'a ${widget.providerProfile.mainService} service provider on Service Hub.\n\n'
       'Service area: ${widget.providerProfile.address}\n'
       'Contact me on WhatsApp:\n'
       '$_whatsAppContactLink',

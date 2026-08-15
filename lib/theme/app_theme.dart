@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// KaamSetu color palette (matches the design: #FFC107, #0D1B2A, #1E293B, #10B981, #FFFFFF)
+/// Service Hub color palette (matches the design: #FFC107, #0D1B2A, #1E293B, #10B981, #FFFFFF)
 class AppColors {
   static const Color primaryYellow = Color(0xFFFFC107);
   static const Color darkBg = Color(0xFF0D1B2A);

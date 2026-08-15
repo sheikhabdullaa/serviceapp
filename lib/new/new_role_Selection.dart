@@ -35,7 +35,7 @@ class RoleSelectScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
               const Text(
-                'How do you want to use KaamSetu?',
+                'How do you want to use Service Hub?',
                 style: TextStyle(
                   color: AppColors.darkBg,
                   fontSize: 25,
@@ -102,7 +102,7 @@ class RoleSelectScreen extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Your selected role will be saved in your account. '
-                        'After login, KaamSetu will automatically open the correct app experience.',
+                        'After login, Service Hub will automatically open the correct app experience.',
                         style: TextStyle(
                           color: AppColors.darkBg,
                           fontSize: 13,

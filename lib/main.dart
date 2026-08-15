@@ -16,16 +16,16 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(const KaamSetuApp());
+  runApp(const servicehub());
 }
 
-class KaamSetuApp extends StatelessWidget {
-  const KaamSetuApp({super.key});
+class servicehub extends StatelessWidget {
+  const servicehub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'KaamSetu',
+      title: 'servicehub',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       home: const AuthGate(),
@@ -89,13 +89,6 @@ class _AuthGateState extends State<AuthGate> {
 
         final firebaseUser = authSnapshot.data;
 
-        /*
-         * Firebase user login نہیں ہے۔
-         *
-         * یہاں ProviderDashboardScreen نہیں آنی چاہیے۔
-         * SplashScreen سے Get Started پھر Role Selection
-         * screen کھلے گی۔
-         */
         if (firebaseUser == null) {
           return const SplashScreen();
         }

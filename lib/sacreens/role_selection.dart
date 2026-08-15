@@ -42,7 +42,7 @@
 //                   children: [
 //                     const SizedBox(height: 12),
 //                     const Text(
-//                       'How do you want to use KaamSetu?',
+//                       'How do you want to use Service Hub?',
 //                       style: TextStyle(
 //                         color: AppColors.darkBg,
 //                         fontSize: 25,
@@ -123,7 +123,7 @@
 //                           Expanded(
 //                             child: Text(
 //                               'Your selected role will be saved with your account. '
-//                               'After login, KaamSetu will open the correct experience automatically.',
+//                               'After login, Service Hub will open the correct experience automatically.',
 //                               style: TextStyle(
 //                                 color: AppColors.darkBg,
 //                                 fontSize: 13,

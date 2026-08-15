@@ -140,7 +140,7 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
           content: const Text(
             'For help with your provider account, '
             'services or verification, contact the '
-            'KaamSetu support team.',
+            'Service Hub support team.',
           ),
           actions: [
             TextButton(
@@ -400,7 +400,7 @@ class _DashboardContent extends StatelessWidget {
                 _DashboardMenuItem(
                   icon: Icons.help_outline,
                   title: 'Help & Support',
-                  subtitle: 'Get help with KaamSetu',
+                  subtitle: 'Get help with Service Hub',
                   onTap: onHelp,
                 ),
                 const Divider(height: 1),

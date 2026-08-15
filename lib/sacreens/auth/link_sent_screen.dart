@@ -390,7 +390,7 @@
 //               const SizedBox(height: 16),
 //               const Text(
 //                 'Open Gmail and tap the verification link. '
-//                 'Then return to KaamSetu and press the button below.',
+//                 'Then return to Service Hub and press the button below.',
 //                 textAlign: TextAlign.center,
 //                 style: TextStyle(
 //                   color: AppColors.textGrey,
