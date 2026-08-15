@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:932125841285:android:b9a6a228eb18c76d1416ec",
         "android_client_info": {
-          "package_name": "com.example.serviceapp"
+          "package_name": "com.service.servicehub"
         }
       },
       "oauth_client": [],
