@@ -510,6 +510,18 @@ class ProviderServicesScreen extends StatelessWidget {
     required this.providerId,
   });
 
+  ProviderService get service => ProviderService(
+        id: '',
+        title: '',
+        description: '',
+        category: '',
+        hourlyCharge: 0,
+        experienceYears: 0,
+        serviceArea: '',
+        providerId: '',
+        providerName: '',
+      );
+
   Future<ProviderProfile?> _getProviderProfile(
     BuildContext context,
   ) async {
@@ -606,15 +618,15 @@ class ProviderServicesScreen extends StatelessWidget {
       return;
     }
 
-    // await Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (_) => AddEditServiceScreen(
-    //       providerId: providerId,
-    //       providerProfile: providerProfile,
-    //       service: service,
-    //     ),
-    //   ),
-    // );
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => AddEditServiceScreen(
+          providerId: providerId,
+          providerProfile: providerProfile,
+          service: service,
+        ),
+      ),
+    );
   }
 
   Future<void> _openEditService(
