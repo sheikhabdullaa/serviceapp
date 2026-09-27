@@ -1,7 +1,7 @@
 name: service_hub
 description: "Service Hub - Har Kaam, Aasan. Connect users with trusted local service providers."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
